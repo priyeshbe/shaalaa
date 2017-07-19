@@ -51,6 +51,21 @@
           center: {lat: 19.052996, lng: 73.073255},
           zoom: 15
         });
+        var flightPlanCoordinates = [
+         {lat: 19.053020, lng: 73.072622},
+         {lat: 19.036412, lng: 73.071896},
+         {lat: 19.033241, lng: 73.085819},
+         {lat: 19.038761, lng: 73.102333}
+       ];
+       var flightPath = new google.maps.Polyline({
+         path: flightPlanCoordinates,
+         geodesic: true,
+         strokeColor: '#FF0000',
+         strokeOpacity: 1.0,
+         strokeWeight: 2
+       });
+
+       flightPath.setMap(map);
         infoWindow = new google.maps.InfoWindow;
 
         // Try HTML5 geolocation.
