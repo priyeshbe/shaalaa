@@ -1,9 +1,12 @@
 {
-    "name": "School-Bus",
-    "description": "School bus tracking Application",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "express": "3.x"
-    }
+  "name": "School-Bus",
+  "description": "School bus tracking Application",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.2",
+    "express": "3.x"
+  }
 }

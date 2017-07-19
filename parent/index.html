@@ -19,7 +19,7 @@
     </style>
   </head>
   <body>
-    <button onclick="changeco()">Click me</button>
+    <button onclick="getLocationData()">Click me</button>
     <div id="map"></div>
     <script>
       // Note: This example requires that you consent to location sharing when
@@ -27,21 +27,24 @@
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
       var map, infoWindow;
-      function changeco() {
+      //setInterval(function(){getLocationData();}, 5000);
+      function getLocationData() {
 
         var xhttp = new XMLHttpRequest();
         xhttp.open("GET", "http://localhost:3000/bdata", false);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send();
-        console.log(xhttp.response);
+        //console.log(xhttp.response);
 
-   var response = JSON.parse(xhttp.responseText);
+        var response = JSON.parse(xhttp.responseText);
+        //console.log(response[4]);
 
         var pos = {
-          lat: 19.96,
-          lng: 73.55
+          lat: parseInt(response[4].lat),
+          lng: parseInt(response[4].lng)
         };
         infoWindow.setPosition(pos);
+        infoWindow.setContent(response[4].busno);
       }
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {

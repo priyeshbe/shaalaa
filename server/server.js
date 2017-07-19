@@ -3,19 +3,19 @@ var express = require('express'),
     bdata = require('./model/mongo');
 
 var app = express();
-    app.configure(function () {
-      app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-  //      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-next();
-      });
-
-    app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
-    app.use(express.bodyParser());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
 });
+
+app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
+
+//app.use(express.bodyParser());// this was giving deprecated error
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.get('/bdata', bdata.findAll);
 app.get('/bdata/:id', bdata.findById);
