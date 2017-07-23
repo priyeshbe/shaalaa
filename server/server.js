@@ -21,7 +21,7 @@ app.get('/bdata', bdata.findAll);
 app.get('/bdata/:id', bdata.findById);
 app.post('/bdata', bdata.addWine);
 app.post('/bdatainit', bdata.addDataInitial);
-app.post('/bdataup', bdata.updateWine);
+app.get('/bdataup', bdata.updateWine); //localhost:3000/bdataup?busno=3&lat=16&lng=73
 app.delete('/bdata/:id', bdata.deleteWine);
 
 
