@@ -27,7 +27,7 @@
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
       var map, infoWindow;
-      setInterval(function(){getLocationData();}, 3500);
+      //setInterval(function(){getLocationData();}, 5000);
       function getLocationData() {
 
         var xhttp = new XMLHttpRequest();
@@ -52,15 +52,13 @@
           zoom: 15
         });
 
-/*
-      var marker = new google.maps.Marker({
+
+      /*var marker = new google.maps.Marker({
          position: {lat: 19.052996, lng: 73.073255},
-         map: map,
-         title: "Derby",
-      icon: "http://www.codeshare.co.uk/images/blue-pin.png", //if you comment this out or delete it you will get the default pin icon.
-      animation:google.maps.Animation.DROP
+         map: map
+         title: "Derby"
        });
-*/
+       */
         var flightPlanCoordinates = [
          {lat: 19.053020, lng: 73.072622},
          {lat: 19.036412, lng: 73.071896},
