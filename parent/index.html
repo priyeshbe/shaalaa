@@ -19,34 +19,36 @@
     </style>
   </head>
   <body>
-    <button onclick="getLocationData()">Click me</button>
+    <h3 id="loca1"></h3>
+    <h3 id="loca2"></h3>
+    <h3 id="loca3" onclick="busLive()"></h3>
     <div id="map"></div>
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
     <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyD546mChgbL3T6vod5U51qmQF0RwBKC3JQ",
+        authDomain: "bus-location-aa3da.firebaseapp.com",
+        databaseURL: "https://bus-location-aa3da.firebaseio.com",
+        projectId: "bus-location-aa3da",
+        storageBucket: "bus-location-aa3da.appspot.com",
+        messagingSenderId: "749853144024"
+      };
+      firebase.initializeApp(config);
+
+      var dbreflat = firebase.database().ref('bus').child('bus2/lat');
+      var dbreflng = firebase.database().ref('bus').child('bus2/lng');
+
+
       // Note: This example requires that you consent to location sharing when
       // prompted by your browser. If you see the error "The Geolocation service
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
       var map, infoWindow;
       //setInterval(function(){getLocationData();}, 5000);
-      function getLocationData() {
 
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://localhost:3000/bdata", false);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send();
-        //console.log(xhttp.response);
-
-        var response = JSON.parse(xhttp.responseText);
-        //console.log(response[4]);
-
-        var pos = {
-          lat: parseInt(response[4].lat),
-          lng: parseInt(response[4].lng)
-        };
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(response[4].busno);
-      }
       function initMap() {
+
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 19.052996, lng: 73.073255},
           zoom: 15
@@ -83,10 +85,19 @@
               lat: 19.052996,
               lng: 73.073255
             };
+            var lc1 = document.getElementById("loca1");
+            var lc2 = document.getElementById("loca2");
+
+            var lc3 = document.getElementById("loca3");
+            lc3.innerText = typeof(pos.lat);
+
+            dbreflat.on('value', snap => lc1.innerText = parseFloat(snap.val()));
+            dbreflng.on('value', snap => lc2.innerText = parseFloat(snap.val()));
 
             infoWindow.setPosition(pos);
             infoWindow.setContent('3');
             infoWindow.open(map);
+
             //map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
@@ -97,6 +108,20 @@
         }
       }
 
+      function busLive() {
+        setInterval(alertFunc, 1000);
+      }
+      function alertFunc() {
+        var lc1 = parseFloat(document.getElementById("loca1").innerText);
+        var lc2 = parseFloat(document.getElementById("loca2").innerText);
+        var pos = {
+          lat: lc1,
+          lng: lc2
+        };
+        infoWindow.setPosition(pos);
+      }
+
+
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
@@ -106,7 +131,7 @@
       }
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9eJgRWyrbCDF7nr-VwywXHP7WPMUg6sA&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl0J64UOoJJFaqfbxV1xwYyGPUgN7nymQ&callback=initMap">
     </script>
   </body>
 </html>
